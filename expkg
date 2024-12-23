@@ -145,42 +145,123 @@ function validate_repo_manifest() {
     return 0
 }
 
-function add_repository() {
+function add_repo() {
     local repo_url="$1"
-    if [[ -z $repo_url ]]; then
-        print_error "Repository URL is required."
+
+    # Check if the URL is provided
+    if [ -z "$repo_url" ]; then
+        print_error "No repository URL provided."
         return 1
     fi
 
-    print_verbose "Fetching repository manifest from $repo_url"
-    repo_manifest=$(curl -s "$repo_url/list.pkgrepo")
-    if [[ -z $repo_manifest ]]; then
-        print_error "Failed to fetch 'list.pkgrepo'. Ensure the file exists at the repository root."
+    print_verbose "Fetching repository manifest from $repo_url..."
+
+    # Clone the repository to a temporary location
+    temp_dir=$(mktemp -d)
+    git clone "$repo_url" "$temp_dir" > /dev/null 2>&1
+
+    # Check if the repository contains a list.pkgrepo file
+    if [ ! -f "$temp_dir/list.pkgrepo" ]; then
+        print_error "Invalid repository: 'list.pkgrepo' file not found in the repository."
+        rm -rf "$temp_dir"
         return 1
     fi
 
+    print_success "Repository fetched successfully."
+
+    # Read the contents of the list.pkgrepo file
+    repo_manifest=$(cat "$temp_dir/list.pkgrepo")
+
+    # Validate the repository manifest
     validate_repo_manifest "$repo_manifest"
-    if [[ $? -ne 0 ]]; then
+    if [ $? -ne 0 ]; then
         print_error "Repository manifest validation failed."
+        rm -rf "$temp_dir"
         return 1
     fi
 
-    echo "$repo_manifest" >>"$REPO_LIST_FILE"
-    print_success "Repository added successfully."
+    # Extract dependencies from the manifest
+    dependencies=$(echo "$repo_manifest" | grep -oP '%dependencies\s*{.*?}' | sed 's/%dependencies\s*{\(.*\)}/\1/' )
 
-    # Fetch dependencies
-    dependencies=$(sed -n '/%dependencies {/,/}/p' <<<"$repo_manifest" | sed '/%dependencies {/{h;d};H;$!d;g' | sed 's/<.*>\s*//g')
-    if [[ -n $dependencies ]]; then
-        print_verbose "Dependencies found for this repository:"
-        echo "$dependencies" | tr '\n' ' ' | xargs -n 1 echo -e "${CYAN}•${RESET} " 
-        echo
+    if [ -n "$dependencies" ]; then
+        print_success "The repository contains the following dependencies:"
+        echo "$dependencies"
 
-        read -p "Do you want to install all dependencies? (y/n): " install_deps
-        if [[ "$install_deps" =~ ^[Yy]$ ]]; then
+        # Ask user if they want to install dependencies
+        print_prompt "Would you like to install these dependencies? (y/n)"
+        read -r install_deps_choice
+
+        if [[ "$install_deps_choice" =~ ^[Yy]$ ]]; then
+            # Install the dependencies
             install_dependencies "$dependencies"
         fi
     fi
+
+    # Clean up the temporary directory
+    rm -rf "$temp_dir"
+
+    print_success "Repository $repo_url added successfully."
+    return 0
 }
+
+function validate_repo_manifest() {
+    local manifest="$1"
+
+    # Ensure @define-repo exists in the manifest
+    if ! grep -q "^@define-repo" <<<"$manifest"; then
+        print_error "Invalid repository manifest. Missing '@define-repo'."
+        return 1
+    fi
+
+    # Ensure the repo has <$name>, <$reference>, and <$description>
+    if ! grep -q "<\$name>" <<<"$manifest"; then
+        print_error "Invalid repository manifest. Missing '<\$name>'."
+        return 1
+    fi
+    if ! grep -q "<\$reference>" <<<"$manifest"; then
+        print_error "Invalid repository manifest. Missing '<\$reference>'."
+        return 1
+    fi
+    if ! grep -q "<\$description>" <<<"$manifest"; then
+        print_error "Invalid repository manifest. Missing '<\$description>'."
+        return 1
+    fi
+
+    print_success "Repository manifest validated successfully."
+    return 0
+}
+
+function install_dependencies() {
+    local dependencies="$1"
+
+    # Process each dependency
+    IFS=' ' read -ra DEPENDENCIES <<< "$dependencies"
+    for dep in "${DEPENDENCIES[@]}"; do
+        dep=$(echo "$dep" | sed 's/^\$//')  # Remove any leading '$'
+        print_verbose "Installing dependency: $dep"
+        install_dependency "$dep"
+    done
+}
+
+function install_dependency() {
+    local dep="$1"
+
+    # Install dependencies for various package managers
+    if command -v pip > /dev/null; then
+        pip install "$dep"
+    elif command -v npm > /dev/null; then
+        npm install "$dep"
+    elif command -v apt > /dev/null; then
+        sudo apt install "$dep" -y
+    elif command -v pkg > /dev/null; then
+        pkg install "$dep" -y
+    elif command -v pacman > /dev/null; then
+        sudo pacman -S "$dep" --noconfirm
+    else
+        print_error "No supported package manager found to install $dep."
+    fi
+}
+
 
 function list_repositories() {
     if [[ ! -f $REPO_LIST_FILE ]]; then
