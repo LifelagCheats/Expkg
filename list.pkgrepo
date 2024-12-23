@@ -1,0 +1,20 @@
+@define-repo
+
+<$name> "expkg-official-repo"
+<$reference> "https://github.com/LifelagCheats/Expkg"
+<$description> "Official repo for custom termux package manager expkg, this is actually an extra repo, don't worry if it gets deleted"
+
+%dependencies {
+<pip> [
+$numpy
+$pandas
+$matplotlib
+$scikit-learn
+$tensorflow
+$keras
+$flask
+$django
+$requests
+$beautifulsoup4
+]
+}
