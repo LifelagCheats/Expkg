@@ -1,0 +1,10 @@
+<$cmd> git clone https://github.com/elkowar/eww <$cmd>
+<$cmd> cd eww <$cmd>
+<$cmd> cargo build --release --no-default-features --features=wayland <$cmd>
+<$cmd> cd target/release <$cmd> 
+<$cmd> chmod +x eww <$cmd>
+<$cmd> sudo mv eww /usr/local/bin/ <$cmd>
+<$cmd> eww daemon <$cmd>
+<$cmd> echo "eww has been installed, do 'eww' for a list commands" <$cmd>
+
+
