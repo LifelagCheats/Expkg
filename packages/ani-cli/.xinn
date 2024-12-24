@@ -1,0 +1,5 @@
+<$cmd> git clone "https://github.com/pystardust/ani-cli.git" <$cmd>
+<$cmd> sudo cp ani-cli/ani-cli /usr/local/bin <$cmd>
+<$cmd> rm -rf ani-cli <$cmd>
+<$cmd> echo "ani-cli has been installed successfully" <$cmd>
+<$cmd> echo "if the dependency downloading didn't do it, you can also download ani-skip for skipping anime intros just do 'xion install ani-skip'" <$cmd>
