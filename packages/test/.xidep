@@ -5,6 +5,15 @@
     (*)beautifulsoup4
 ]
 
- .+ = install
-.- = uninstall
-.* = <xion.ask>
++ = install
+- = uninstall
+* = <xion.ask>
+
+script {
+    if <xion.ask> == true:
+        install
+    elif <xion.ask> == false:
+        uninstall
+    else:
+        nothing
+}
