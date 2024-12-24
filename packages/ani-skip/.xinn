@@ -1,0 +1,6 @@
+<$cmd> git clone https://github.com/synacktraa/ani-skip.git <$cmd>
+<$cmd> sudo apt install mpv fzf <$cmd>
+<$cmd> sudo cp ani-skip/ani-skip /usr/local/bin <$cmd>
+<$cmd> mkdir -p ~/.config/mpv/scripts && cp ani-skip/skip.lua ~/.config/mpv/scripts <$cmd>
+<$cmd> sudo ani-skip -U <$cmd>
+<$cmd> echo "ani-skip has been installed, feel free to use it now" <$cmd>
