@@ -1,1 +1,10 @@
+<pip> [
+    (+)matplotlib
+    (+)numpy
+    (-)cryptography
+    (*)beautifulsoup4
+]
 
+ .+ = install
+.- = uninstall
+.* = <$>xion.ask<$>
