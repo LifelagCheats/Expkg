@@ -1,4 +1,4 @@
 <$cmd> curl -LsSf https://astral.sh/uv/install.sh | sh <$cmd>
-<$cmd> git clone https://github.com/Benexl/FastAnime.git --depth 1 <$cmd>
+<$cmd> git clone https://github.com/Benexl/FastAnime.git <$cmd>
 <$cmd> cd FastAnime <$cmd>
 <$cmd> uv tool install . <$cmd>
