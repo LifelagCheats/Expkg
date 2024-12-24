@@ -1,5 +1,5 @@
-@define-repo
+@define-repo 
 
-<$name> "expkg-official-repo"
-<$description> "Official repo for custom termux package manager expkg, this is actually an extra repo, don't worry if it gets deleted"
+<$name> Xion official repo
+<$description> official repo for the  xion custom package builder and manager, all the  main packages are  here.
 
