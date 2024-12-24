@@ -1,0 +1,7 @@
+<pacman> [
+  (+)curl
+  (+)fzf
+  (+)mpv
+]
+
++ = -S
