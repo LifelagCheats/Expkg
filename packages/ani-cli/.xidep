@@ -1,0 +1,19 @@
+<pacman> [
+  (+)mpv
+  (+)yt-dlp
+  (+)ffmpeg
+  (+)fzf
+  (+)patch
+  (*)ani-skip
+]
+
++ = -S
+* = <xion.ask>
+script {
+  if <xion.ask> == true:
+    (+)
+  elif <xion.ask> == false:
+    nothing
+  else:
+    nothing
+}
