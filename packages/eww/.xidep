@@ -1,6 +1,7 @@
 <pacman> [
   (+)rust
   (+)cargo
+  (+)git
 ]
 
 + = -S
