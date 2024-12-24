@@ -1,7 +1,14 @@
 <pacman> [
   (+)git
   (+)python
-  (+)uv
+  (+)mpv
+  (*)fzf
+  (*)rofi
+  (*)chafa
+]
+
+<yay> [
+  (*)ani-skip
 ]
 
 + = -S
