@@ -1,3 +1,8 @@
 Eww (ElKowar's Wacky Widgets, pronounced with sufficient amounts of disgust) is a widget system made in Rust, which lets you create your own widgets similarly to how you can in AwesomeWM. The key difference: It is independent of your window manager!
 
 Configured in yuck and themed using CSS, it is easy to customize and provides all the flexibility you need!
+
+
+
+
+
