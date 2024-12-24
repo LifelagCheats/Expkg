@@ -1,0 +1,5 @@
+<$cmd> echo -e "curling into install directory..." <$cmd>
+<$cmd> curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \ <$cmd>
+<$cmd> chmod 755 msfinstall && \ <$cmd>
+<$cmd> echo -e "executing install script" <$cmd>
+<$cmd> ./msfinstall <$cmd>
