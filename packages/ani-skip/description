@@ -1,0 +1,2 @@
+A script to automatically skip anime opening and ending sequences, making it easier to watch your favorite shows without having to manually skip the intros and outros each time.
+  this script is an extension for ani-cli, but there's a chance it may support other anime clis, it's also best to use it with mpv since that's what it supports the most.
