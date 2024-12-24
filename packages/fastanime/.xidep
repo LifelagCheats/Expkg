@@ -11,6 +11,15 @@
   (*)ani-skip
 ]
 
+<pip> [
+  (++)notifications
+  (++)plyer
+  (++)standard
+  (++)api
+]
+
+++ = install
+-- = uninstall
 + = -S
 - = -R
 * = <xion.ask>
