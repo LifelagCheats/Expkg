@@ -1,5 +1,9 @@
-<pip> [
-  +fastanime
+<pacman> [
+  (+)git
+  (+)python
+  (+)uv
 ]
 
-+ = install
++ = -S
+- = -R
+* = <xion.ask>
