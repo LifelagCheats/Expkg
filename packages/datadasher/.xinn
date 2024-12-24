@@ -1,0 +1,7 @@
+<$cmd> echo -e "git cloning into repository..." <$cmd>
+<$cmd> git clone https://github.com/LifelagCheats/DataDasher <$cmd>
+<$cmd> echo -e "changing directories..." <$cmd>
+<$cmd> cd DataDasher <$cmd>
+<$cmd> echo -e "updating to most recent version..."
+<$cmd> git pull <$cmd>
+<$cmd> echo "datadasher has been installed, do 'python Datadasher.py' to execute" <$cmd>
