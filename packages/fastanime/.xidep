@@ -23,3 +23,12 @@
 + = -S
 - = -R
 * = <xion.ask>
+
+script {
+    if <xion.ask> == true:
+        (+)
+    elif <xion.ask> == false:
+        (-)
+    else:
+        nothing
+}
