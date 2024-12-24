@@ -1,0 +1,10 @@
+<pacman> [
+  (++)git
+]
+
+<pip> [
+  (+)requirements.txt
+]
+
++ = install -r
+++ = -S
