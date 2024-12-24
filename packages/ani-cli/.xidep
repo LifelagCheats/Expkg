@@ -4,7 +4,10 @@
   (+)ffmpeg
   (+)fzf
   (+)patch
-  (*)ani-skip
+]
+
+<yay> [
+  (*)ani-skip-git
 ]
 
 + = -S
